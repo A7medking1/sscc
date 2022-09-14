@@ -7,8 +7,8 @@ import '../api_constant.dart';
 class ApiClient {
   static late Dio dio;
 
-  static init() {
-    dio = Dio(
+  static init() async{
+    dio =  Dio(
       BaseOptions(
         baseUrl: ApiConstant.baseUrl,
         receiveDataWhenStatusError: true,
@@ -39,18 +39,18 @@ class ApiClient {
     );
   }
 
-  static Future<Response> getData({
+   Future<Response> getData({
     required String url,
     Map<String, dynamic>? query,
-    String lang = 'en',
     String? token,
   }) async {
     dio.options.headers = {
-      'Content-Type': 'application/json',
+      HttpHeaders.contentTypeHeader: 'application/json',
       'Authorization': token ?? "",
     };
     return await dio.get(
       url,
+      options: Options(validateStatus: (_) => true),
       queryParameters: query,
     );
   }

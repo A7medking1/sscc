@@ -7,7 +7,9 @@ import 'package:test002/sc_media_app/helper/cach_helper.dart';
 import 'package:test002/sc_media_app/helper/constant.dart';
 import 'package:test002/sc_media_app/model/register_model.dart';
 import 'package:test002/sc_media_app/views/pages/auth_screen/login_screen.dart';
+import 'package:test002/sc_media_app/views/pages/layout_page.dart';
 import '../../model/login_model.dart';
+import '../../model/posts_model.dart';
 import '../../views/pages/home_screen.dart';
 import '../../views/widgets/show_toast.dart';
 import '../data/repository/auth_repo.dart';
@@ -18,6 +20,7 @@ class AuthController extends GetxController {
   AuthController({
     required this.authRepo,
   });
+
 
   bool get isLoading => _isLoading;
   bool _isLoading = false;
@@ -50,7 +53,7 @@ class AuthController extends GetxController {
       if(response.statusCode == 200){
         CacheHelper.saveData(key: 'userToken', value: response.data["token"]) ;
         showToast(response.data["message"], ToastStates.SUCCESS);
-        Get.offAll(()=> HomeScreen());
+        Get.offAll(()=> AppLayout());
       }else{
         showToast(response.data["message"], ToastStates.ERROR);
       }
@@ -62,11 +65,6 @@ class AuthController extends GetxController {
       print(e.toString());
     });
   }
-
-
-
-
-
   //*************************************************
   bool isPasswordShow = true;
   IconData icon = Icons.visibility;

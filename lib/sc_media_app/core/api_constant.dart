@@ -10,6 +10,10 @@ class ApiConstant {
   static const String  registerUri= "/users/register";
 
 
+  static const String  getAllPosts= "/main/getall";
+  static const String  addPosts= "/main/create";
+
+
 
 
 }
